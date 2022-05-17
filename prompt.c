@@ -18,7 +18,15 @@ char *get_prompt(void)
 	buf = malloc(sizeof(char) * size);
 
 	printf("$ ");
-	getline(&buf, &size, stdin);
+	if (getline(&buf, &size, stdin) == -1)
+	{
+		if (feof(stdin))
+		{
+			exit(0);
+		}
+		else
+			perror("Error");
+	}
 
 	return (buf);
 }
@@ -35,9 +43,9 @@ char **split_line(char *str)
 	int i = 0;
 	int bufsize = 64;
 	char *res;
+	char c;
 
 	char **tokens = malloc(bufsize * sizeof(char *));
-
 	/*get first token */
 	tokens[i++] = strtok(str, " ");
 
@@ -48,6 +56,7 @@ char **split_line(char *str)
 	}
 
 	tokens[i] = NULL;
+	free(tokens);
 
 	return (tokens);
 }
