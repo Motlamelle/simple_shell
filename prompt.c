@@ -14,18 +14,22 @@ char *get_prompt(void)
 {
 	char *buf;
 	size_t size = 64;
+	ssize_t c;
 
 	buf = malloc(sizeof(char) * size);
 
-	printf("$ ");
-	if (getline(&buf, &size, stdin) == -1)
+	if (!buf)
 	{
-		if (feof(stdin))
-		{
-			exit(0);
-		}
-		else
-			perror("No PATH");
+		perror("Malloc failed\n");
+		exit(1);
+	}
+
+	printf("$ ");
+	c  = getline(&buf, &size, stdin);
+
+	if (c == EOF)
+	{
+		exit(0);
 	}
 
 	return (buf);
