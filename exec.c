@@ -14,8 +14,8 @@
 void exec(char **argv)
 {
 	pid_t pid = fork();
-/*	char *envp[] = {(char *) "PATH=/bin", 0};*/
-	
+	char *envp[] = {(char *) "PATH=/bin", 0};
+
 	if (pid == -1)
 	{
 		printf("\nFailed to fork");
@@ -24,15 +24,21 @@ void exec(char **argv)
 	else if (pid == 0)
 	{
 
-		if (execve(argv[0], argv, NULL) == -1) 
-			perror("Error:");
+		if (execve(argv[0], argv, envp) == -1)
+			perror(argv[0]);
 		exit(0);
 	}
-	else {
+	else
+	{
 		wait(NULL);
 		return;
 	}
 }
+/**
+ * main - Start the excecution
+ *
+ * Return: 0 on success
+ */
 
 int main(void)
 {
@@ -40,7 +46,7 @@ int main(void)
 	char **args;
 	int i;
 
-	while(1)
+	while (1)
 	{
 		command = get_prompt();
 		for (i = 0; command[i] != '\0'; i++)
@@ -51,10 +57,5 @@ int main(void)
 		args = split_line(command);
 		exec(args);
 	}
-/*
-	char *arg[] = {"/bin/ls", 0};
-	exec(arg);
-	printf("%d\n", strcmp(arg[0], args[0]));*/
-
 	return (0);
 }

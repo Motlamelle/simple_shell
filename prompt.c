@@ -25,7 +25,7 @@ char *get_prompt(void)
 			exit(0);
 		}
 		else
-			perror("Error");
+			perror("No PATH");
 	}
 
 	return (buf);
