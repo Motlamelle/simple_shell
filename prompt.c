@@ -24,7 +24,7 @@ char *get_prompt(void)
 		exit(1);
 	}
 
-	printf("cisfun$ ");
+	write(STDERR_FILENO, "cisfun$ ", 9);
 	c  = getline(&buf, &size, stdin);
 
 	if (c == EOF)

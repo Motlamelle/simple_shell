@@ -16,9 +16,8 @@ void exec(char **argv)
 	pid_t pid = fork();
 	int i;
 
-	for (i = 0; argv[i] != NULL; i++);
-
-/*	char *envp[] = {(char *) "PATH=/bin", 0};*/
+	for (i = 0; argv[i] != NULL; i++)
+		;
 
 	if (pid == -1)
 	{
@@ -72,8 +71,7 @@ int main(void)
 
 		if (args[0] == NULL)
 			continue;
-		if (strcmp(args[0], "^C") == 0)
-			return (0);
+
 		exec(args);
 	}
 
