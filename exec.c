@@ -29,13 +29,13 @@ void exec(char **argv)
 	{
 		if (i == 1)
 		{
-			if (execv(argv[0], argv) == -1)
+			if (execve(argv[0], argv, NULL) == -1)
 				perror(argv[0]);
 		}
 		else
 		{
 
-			if (execv(argv[1], argv) == -1)
+			if (execve(argv[1], argv, NULL) == -1)
 				perror(argv[0]);
 		}
 		exit(0);
@@ -72,7 +72,8 @@ int main(void)
 
 		if (args[0] == NULL)
 			continue;
-
+		if (strcmp(args[0], "^C") == 0)
+			return (0);
 		exec(args);
 	}
 
