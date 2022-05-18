@@ -45,7 +45,6 @@ void exec(char **argv)
 		wait(&status);
 	}
 
-	return;
 }
 /**
  * main - Start the excecution
