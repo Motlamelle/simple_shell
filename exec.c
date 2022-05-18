@@ -14,7 +14,7 @@
 void exec(char **argv)
 {
 	pid_t pid = fork();
-	char *envp[] = {(char *) "PATH=/bin", 0};
+/*	char *envp[] = {(char *) "PATH=/bin", 0};*/
 
 	if (pid == -1)
 	{
@@ -24,7 +24,7 @@ void exec(char **argv)
 	else if (pid == 0)
 	{
 
-		if (execve(argv[0], argv, envp) == -1)
+		if (execve(argv[0], argv, NULL) == -1)
 			perror(argv[0]);
 		exit(0);
 	}
@@ -55,6 +55,8 @@ int main(void)
 				command[i] = ' ';
 		}
 		args = split_line(command);
+		if (args[0] == NULL)
+			continue;
 		exec(args);
 	}
 	return (0);
