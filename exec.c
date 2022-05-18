@@ -15,6 +15,7 @@ void exec(char **argv)
 {
 	pid_t pid = fork();
 	int i;
+	int status;
 
 	for (i = 0; argv[i] != NULL; i++)
 		;
@@ -41,9 +42,10 @@ void exec(char **argv)
 	}
 	else
 	{
-		wait(NULL);
-		return;
+		wait(&status);
 	}
+
+	return;
 }
 /**
  * main - Start the excecution
