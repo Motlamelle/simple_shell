@@ -68,12 +68,19 @@ int main(void)
 				command[i] = ' ';
 		}
 
+
 		args = split_line(command);
+
+		for (i = 0; args[i] != NULL; i++)
+			;
 
 		if (args[0] == NULL)
 			continue;
 
-		exec(args);
+		if (i == 1)
+			exec(args);
+		else
+			perror("Error:");
 	}
 
 	free(args);
