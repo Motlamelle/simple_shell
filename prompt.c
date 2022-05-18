@@ -24,7 +24,7 @@ char *get_prompt(void)
 		exit(1);
 	}
 
-	printf("$ ");
+	printf("cisfun$ ");
 	c  = getline(&buf, &size, stdin);
 
 	if (c == EOF)
