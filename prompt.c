@@ -43,7 +43,6 @@ char **split_line(char *str)
 	int i = 0;
 	int bufsize = 64;
 	char *res;
-	char c;
 
 	char **tokens = malloc(bufsize * sizeof(char *));
 	/*get first token */
@@ -56,7 +55,6 @@ char **split_line(char *str)
 	}
 
 	tokens[i] = NULL;
-	free(tokens);
 
 	return (tokens);
 }

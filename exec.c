@@ -38,29 +38,23 @@ int main(void)
 {
 	char *command;
 	char **args;
-/*
+	int i;
+
 	while(1)
 	{
 		command = get_prompt();
+		for (i = 0; command[i] != '\0'; i++)
+		{
+			if (command[i] == 10)
+				command[i] = ' ';
+		}
 		args = split_line(command);
 		exec(args);
+	}
+/*
+	char *arg[] = {"/bin/ls", 0};
+	exec(arg);
+	printf("%d\n", strcmp(arg[0], args[0]));*/
 
-		printf("%s", args[1]);
-		break;
-		if (execve(args[0], args, NULL) == -1) 
-			perror("Error:");
-
-	}*/
-	
-	command = get_prompt();
-	printf("%s", command);
-	args = split_line(command);
-	char *arg[] = {"a\n", NULL};
-
-	int var;
-	var = strcmp(arg[0], args[0]);
-	printf("%d\n", var);
-
-/*	exec(arg);*/
 	return (0);
 }
