@@ -1,30 +1,75 @@
-#include "main.h"
-#include <unistd.h>
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
+#include <string.h>
+#include "main.h"
 
 /**
- * shell_prompt - creates the prompt of the shell and receives input
- * @line: buffer to write command into
- * @line_len: length of command to receive
- * @nread: number of characters entered from stdin
+ * get_prompt- read a command from std input
  *
- * Return: buffer to command collected
+ * Return: the command
  */
 
-char *shell_prompt(char *line, size_t line_len, ssize_t *nread)
+char *get_prompt(void)
 {
-	char *PROMT_STR = "$ ";
-	int PROMPT_LEN = 2;
+	char *buf;
+	size_t size = 64;
+	ssize_t c;
 
-	write(STDOUT_FILENO, PROMT_STR, PROMPT_LEN);
-	*nread = getline(&line, &line_len, stdin);
+	buf = malloc(sizeof(char) * size);
 
-	if (*nread == EOF || *nread == -1)
+	if (!buf)
 	{
-		write(STDOUT_FILENO, "\n", PROMPT_LEN - 1);
-		exit(EXIT_FAILURE);
+		perror("Malloc failed\n");
+		exit(1);
 	}
 
-	return (line);
+	write(STDERR_FILENO, "cisfun$ ", 9);
+	c  = getline(&buf, &size, stdin);
+
+	if (c == EOF)
+	{
+		exit(0);
+	}
+
+	return (buf);
+}
+
+/**
+ * split_line- splits a command line into strings
+ * @str: input line
+ *
+ * Return: Array of strings
+ */
+
+char **split_line(char *str)
+{
+	int i = 0;
+	int bufsize = 64;
+	char *res;
+
+	char **tokens = malloc(bufsize * sizeof(char *));
+	/*get first token */
+	tokens[i++] = strtok(str, " ");
+
+	/*get all other tokens */
+	while ((res = strtok(NULL, " ")))
+	{
+		tokens[i++] = res;
+	}
+
+	tokens[i] = NULL;
+
+	return (tokens);
+}
+
+/**
+ * exit_shell - exits the shell
+ *
+ * Return: 0
+ */
+
+int exit_shell(void)
+{
+	return (0);
 }
